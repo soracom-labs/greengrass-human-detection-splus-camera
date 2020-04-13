@@ -1,0 +1,23 @@
+{
+  "lambda": {
+    "FunctionName": "greengrass-soracom-human-ml-raspi-python",
+    "Handler": "greengrassHumanDetection.function_handler",
+    "Runtime": "python2.7",
+    "Description": "Deploy this lambda to a Greengrass core where it will do SageMaker endpoint inference send the resulting predictions to soracom unified endpoint"
+  },
+  "version": "1.0.0",
+  "tags": [
+    "python",
+    "raspi",
+    "raspberrypi",
+    "machine learning",
+    "ml",
+    "greengrass",
+    "iot",
+    "iot edge"
+  ],
+  "authors": [
+    "Soracom"
+  ]
+}
+
