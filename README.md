@@ -68,6 +68,26 @@ Now you can configure your Greengrass Group to use this lambda. Follow the [AWS 
 
 To deploy the lambda to your device, use the [AWS Instructions](https://docs.aws.amazon.com/greengrass/latest/developerguide/configs-core.html) for deployment. 
 
+## Sample Input
+The no specific input is required for this lambda, but it must need access to the a camera on the raspberry pi to get an image. This image will be sent to the SageMaker endpoint, and the endpoint will return:
+
+```
+{'input.jpg': {'detections': [{'det_bbox': [0.3753882944583893, 0.35526686906814575, 0.5500103235244751, 0.8157111406326294], 'confidence': 0.9882474541664124, 'label': 'person', 'classid': 1, 'scan': 'global'}]}}
+```
+
+## Sample Output
+We will then count the number of detections we received and calculate the average confidence. The following will be sent to Soracom:
+
+Data:
+```
+{"input.jpg":{"detections":[{'det_bbox': [0.3753882944583893, 0.35526686906814575, 0.5500103235244751, 0.8157111406326294], 'confidence': 0.9882474541664124, 'label': 'person', 'classid': 1, 'scan': 'global'}]},"nPeople":1,"avgConfidence":0.9882474541664124,"lat":47.6141522,"long":-122.2546382}
+```
+
+Image:
+```
+{"url":"/v1/files/private/camera_input.jpg","contentType":"image/jpeg","contentLength":234355,"eTag":"273bbc802110ea8518f80f3b0b91128c"}
+```
+
 ## Finally
 
 If you log into your Soracom Console and select your devices SIM, you can select Actions -> Harvest Data. You will see the inference data populating here from your device. Naviagting to Harvest files, you will see the image uploaded by the device. 
